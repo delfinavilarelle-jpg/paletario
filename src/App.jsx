@@ -1,122 +1,136 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
+import { useEffect, useState } from 'react'
+import { configurado } from './firebase'
+import {
+  iniciarSesion, escucharPaletas, agregarPaleta,
+  actualizarPaleta, eliminarPaleta,
+} from './services/palettes'
+import PaletteForm from './components/PaletteForm'
+import PaletteCard from './components/PaletteCard'
 import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [uid, setUid] = useState(null)
+  const [paletas, setPaletas] = useState([])
+  const [cargando, setCargando] = useState(true)
+  const [error, setError] = useState('')
+  const [aviso, setAviso] = useState('')
+  const [editando, setEditando] = useState(null)
+  const [formKey, setFormKey] = useState(0)
+
+  useEffect(() => {
+    if (!configurado) {
+      setCargando(false)
+      return
+    }
+    let activo = true
+    let cortar = () => {}
+    iniciarSesion()
+      .then((cred) => {
+        if (!activo) return
+        setUid(cred.user.uid)
+        cortar = escucharPaletas(
+          cred.user.uid,
+          (lista) => {
+            setPaletas(lista)
+            setCargando(false)
+          },
+          (e) => {
+            setError(e.message)
+            setCargando(false)
+          }
+        )
+      })
+      .catch((e) => {
+        setError(e.message)
+        setCargando(false)
+      })
+    return () => {
+      activo = false
+      cortar()
+    }
+  }, [])
+
+  async function ejecutar(accion, mensaje) {
+    try {
+      await accion()
+      setError('')
+      setAviso(mensaje)
+      setTimeout(() => setAviso(''), 2500)
+    } catch (e) {
+      setError(e.message)
+    }
+  }
+
+  const guardar = (datos) =>
+    ejecutar(async () => {
+      if (editando) {
+        await actualizarPaleta(uid, editando.id, datos)
+        setEditando(null)
+      } else {
+        await agregarPaleta(uid, { ...datos, status: 'idea', favorite: false })
+        setFormKey((k) => k + 1)
+      }
+    }, editando ? 'Paleta actualizada' : 'Paleta guardada')
+
+  const cambiarEstado = (id, status) =>
+    ejecutar(() => actualizarPaleta(uid, id, { status }), 'Estado actualizado')
+
+  const alternarFavorita = (p) =>
+    ejecutar(() => actualizarPaleta(uid, p.id, { favorite: !p.favorite }), 'Actualizada')
+
+  const eliminar = (id) =>
+    ejecutar(() => eliminarPaleta(uid, id), 'Paleta eliminada')
+
+  const copiar = (hex) =>
+    navigator.clipboard.writeText(hex).then(() => {
+      setAviso(`${hex} copiado`)
+      setTimeout(() => setAviso(''), 1500)
+    })
+
+  if (!configurado) {
+    return (
+      <main className="app">
+        <h1>Paletario</h1>
+        <p className="error">Falta configurar Firebase: revisá el archivo .env y reiniciá npm run dev.</p>
+      </main>
+    )
+  }
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
+    <main className="app">
+      <header>
+        <h1>Paletario</h1>
+        <p>Mi colección de paletas de color</p>
+      </header>
+
+      {aviso && <p className="aviso">{aviso}</p>}
+      {error && <p className="error">{error}</p>}
+
+      <PaletteForm
+        key={editando?.id ?? `nueva-${formKey}`}
+        editando={editando}
+        onGuardar={guardar}
+        onCancelar={() => setEditando(null)}
+      />
+
+      <section className="lista">
+        {cargando && <p>Cargando…</p>}
+        {!cargando && paletas.length === 0 && <p>Todavía no guardaste ninguna paleta.</p>}
+        {paletas.map((p) => (
+          <PaletteCard
+            key={p.id}
+            paleta={p}
+            onEstado={cambiarEstado}
+            onFavorita={alternarFavorita}
+            onEditar={(paleta) => {
+              setEditando(paleta)
+              window.scrollTo({ top: 0, behavior: 'smooth' })
+            }}
+            onEliminar={eliminar}
+            onCopiar={copiar}
+          />
+        ))}
       </section>
-
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+    </main>
   )
 }
-
-export default App
