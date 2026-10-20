@@ -1,0 +1,93 @@
+// Paletas armadas a mano (no son de ninguna marca).
+export const PALETAS = [
+  { name: 'Atardecer en Palermo', mood: 'cálida', uso: 'póster',
+    colors: ['#3D2645', '#832232', '#CE4257', '#FF7F51', '#FFC285'] },
+  { name: 'Mar de invierno', mood: 'fría', uso: 'web',
+    colors: ['#0B2545', '#13315C', '#134074', '#8DA9C4', '#EEF4ED'] },
+  { name: 'Helado de pastel', mood: 'pastel', uso: 'branding',
+    colors: ['#FFD6E0', '#FFEFCF', '#D4F0F0', '#C5D8FF', '#E2CFEA'] },
+  { name: 'Noche de neón', mood: 'oscura', uso: 'app',
+    colors: ['#0D0221', '#261447', '#7A04EB', '#FF2975', '#2DE2E6'] },
+  { name: 'Cine de los 70', mood: 'retro', uso: 'póster',
+    colors: ['#5B3A29', '#A5532D', '#D98E04', '#E9C46A', '#F4E9CD'] },
+  { name: 'Papel y tinta', mood: 'neutra', uso: 'editorial',
+    colors: ['#F5F2EB', '#D9D3C7', '#A59E8F', '#4A4740', '#1B1A17'] },
+  { name: 'Selva', mood: 'fría', uso: 'branding',
+    colors: ['#0B3D2E', '#1F6F4A', '#5FA777', '#B7D9A8', '#F2F7E9'] },
+  { name: 'Videoclub 90s', mood: 'retro', uso: 'web',
+    colors: ['#1A1B41', '#41EAD4', '#BAFF39', '#FF206E', '#FBFF12'] },
+]
+
+export const CATEGORIAS = [
+  'Tecnología',
+  'Ocio y entretenimiento',
+  'Comida y bebida',
+  'Comercio y hogar',
+]
+
+// Paletas de marcas. Son códigos de referencia: confirmalos en la guía oficial de cada marca.
+export const MARCAS = [
+  // Tecnología
+  { name: 'Microsoft', categoria: 'Tecnología', moods: ['cálida', 'fría'], perfil: 'Multicolor · Tecnológica · Accesible',
+    colors: ['#F25022', '#7FBA00', '#00A4EF', '#FFB900'],
+    nombres: ['Naranja', 'Verde', 'Azul', 'Amarillo'] },
+  { name: 'Apple', categoria: 'Tecnología', moods: ['neutra'], perfil: 'Minimalista · Premium',
+    colors: ['#000000', '#555555', '#FFFFFF'],
+    nombres: ['Negro', 'Gris', 'Blanco'],
+    nota: 'Apple usa versiones monocromáticas de su logotipo; los colores de los dispositivos no representan una paleta de marca.' },
+  { name: 'Google', categoria: 'Tecnología', moods: ['cálida', 'fría'], perfil: 'Multicolor · Tecnológica · Amigable',
+    colors: ['#4285F4', '#EA4335', '#FBBC05', '#34A853'],
+    nombres: ['Azul', 'Rojo', 'Amarillo', 'Verde'] },
+  { name: 'Adobe Creative Cloud', categoria: 'Tecnología', moods: ['cálida'], perfil: 'Creativa · Profesional',
+    colors: ['#EB1000', '#FF4B4B', '#FF8A00', '#D837A5', '#6E3BFF', '#1A1A1A', '#FFFFFF'],
+    nombres: ['Rojo Adobe', 'Coral', 'Naranja', 'Magenta', 'Violeta', 'Negro', 'Blanco'],
+    nota: 'Paleta inspirada en Adobe Creative Cloud: no es la paleta oficial de la marca.' },
+  { name: 'Figma', categoria: 'Tecnología', moods: ['cálida', 'fría'], perfil: 'Multicolor · Creativa · Diseño',
+    colors: ['#FF3737', '#874FFF', '#24CB71', '#FF7237', '#00B6FF'],
+    nombres: ['Rojo', 'Violeta', 'Verde', 'Naranja', 'Celeste'],
+    fuente: 'Pautas de marca de Figma',
+    nota: 'El logo clásico usaba otros tonos (#F24E1E, #FF7262, #A259FF, #1ABCFE, #0ACF83). Confirmá cuál vale en las pautas oficiales.' },
+
+  // Ocio y entretenimiento
+  { name: 'Spotify', categoria: 'Ocio y entretenimiento', moods: ['fría'], perfil: 'Musical · Enérgica',
+    colors: ['#1ED760', '#191414', '#FFFFFF'],
+    nombres: ['Verde', 'Negro', 'Blanco'],
+    fuente: 'Recursos oficiales de Spotify',
+    nota: 'Algunas fuentes usan #1DB954 para el verde. Confirmalo en la guía oficial.' },
+  { name: 'Twitch', categoria: 'Ocio y entretenimiento', moods: ['fría'], perfil: 'Digital · Gaming',
+    colors: ['#9147FF', '#0E0E10', '#FFFFFF'],
+    nombres: ['Violeta', 'Negro', 'Blanco'] },
+  { name: 'Discord', categoria: 'Ocio y entretenimiento', moods: ['fría'], perfil: 'Digital · Gaming',
+    colors: ['#5865F2', '#57F287', '#FEE75C', '#EB459E', '#ED4245'],
+    nombres: ['Blurple', 'Verde', 'Amarillo', 'Rosa', 'Rojo'],
+    fuente: 'Guía oficial de marca de Discord (discord.com/branding)' },
+  { name: 'Nintendo', categoria: 'Ocio y entretenimiento', moods: ['cálida'], perfil: 'Lúdica · Entretenimiento',
+    colors: ['#E60012', '#FFFFFF'],
+    nombres: ['Rojo', 'Blanco'] },
+  { name: 'Los Angeles Lakers', categoria: 'Ocio y entretenimiento', moods: ['cálida', 'fría'], perfil: 'Deportiva · Competitiva',
+    colors: ['#552583', '#FDB927', '#000000', '#FFFFFF'],
+    nombres: ['Violeta', 'Dorado', 'Negro', 'Blanco'] },
+
+  // Comida y bebida
+  { name: "McDonald's", categoria: 'Comida y bebida', moods: ['cálida'], perfil: 'Alimentaria · Enérgica',
+    colors: ['#DA291C', '#FFC72C', '#FFFFFF'],
+    nombres: ['Rojo', 'Amarillo dorado', 'Blanco'] },
+  { name: 'Burger King', categoria: 'Comida y bebida', moods: ['cálida'], perfil: 'Alimentaria · Retro',
+    colors: ['#D62300', '#FF8732', '#F5EBDC', '#502314'],
+    nombres: ['Rojo', 'Naranja', 'Crema', 'Marrón'] },
+  { name: 'Starbucks', categoria: 'Comida y bebida', moods: ['fría'], perfil: 'Natural · Premium',
+    colors: ['#006241', '#00754A', '#1E3932', '#FFFFFF'],
+    nombres: ['Verde principal', 'Verde secundario', 'Verde oscuro', 'Blanco'],
+    nota: 'La marca publica una paleta de verdes en su sitio de identidad creativa.' },
+  { name: 'Coca-Cola', categoria: 'Comida y bebida', moods: ['cálida'], perfil: 'Tradicional · Enérgica',
+    colors: ['#F40009', '#FFFFFF'],
+    nombres: ['Rojo', 'Blanco'] },
+
+  // Comercio y hogar
+  { name: 'Mercado Libre', categoria: 'Comercio y hogar', moods: ['cálida', 'fría'], perfil: 'Comercial · Cercana',
+    colors: ['#FFE600', '#3483FA', '#2D3277'],
+    nombres: ['Amarillo', 'Azul', 'Azul oscuro'] },
+  { name: 'IKEA', categoria: 'Comercio y hogar', moods: ['fría', 'cálida'], perfil: 'Comercial · Funcional',
+    colors: ['#0058A3', '#FFDB00'],
+    nombres: ['Azul', 'Amarillo'] },
+]

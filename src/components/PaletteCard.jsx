@@ -16,7 +16,7 @@ export default function PaletteCard({
           <button
             key={i}
             className="swatch"
-            style={{ background: c, color: textoSobre(c) }}
+            style={{ background: c, color: textoSobre(c), fontSize: paleta.colors.length > 5 ? 9 : undefined }}
             onClick={() => onCopiar(c)}
             title={`Copiar ${c}`}
           >

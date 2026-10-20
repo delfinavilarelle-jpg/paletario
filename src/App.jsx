@@ -7,6 +7,7 @@ import {
 import PaletteForm from './components/PaletteForm'
 import PaletteCard from './components/PaletteCard'
 import Combinar from './components/Combinar'
+import Explorar from './components/Explorar'
 import './App.css'
 
 export default function App() {
@@ -127,10 +128,20 @@ export default function App() {
         >
           Combinar
         </button>
+        <button
+          className={vista === 'explorar' ? 'activa' : ''}
+          onClick={() => setVista('explorar')}
+        >
+          Explorar
+        </button>
       </nav>
 
       {vista === 'combinar' && (
         <Combinar onGuardar={guardarCombinacion} onCopiar={copiar} />
+      )}
+
+      {vista === 'explorar' && (
+        <Explorar onGuardar={guardarCombinacion} onCopiar={copiar} />
       )}
 
       {vista === 'coleccion' && (

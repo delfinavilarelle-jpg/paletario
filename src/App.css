@@ -50,3 +50,16 @@ header p { margin: 0 0 16px; color: #666; }
 .probador h3, .probador p { margin: 0; }
 .probador button { justify-self: start; padding: 8px 14px; border: none; border-radius: 8px; }
 .form button.primario { background: #1a1a1a; color: #fff; border-color: #1a1a1a; padding: 8px 12px; border-radius: 8px; }
+
+.filtros { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 16px; }
+.filtros .tabs { margin: 0; }
+.filtros input, .filtros select { padding: 8px; border: 1px solid #ccc; border-radius: 8px; background: #fff; }
+.filtros input { flex: 1; min-width: 160px; }
+.detalle { margin: 0 0 8px; font-size: 13px; display: flex; flex-wrap: wrap; gap: 4px; }
+.nota { margin: 0 0 8px; font-size: 13px; color: #666; }
+.swatch.sel { outline: 3px solid #1a1a1a; outline-offset: -3px; }
+.card .acciones button { padding: 8px 12px; border: 1px solid #ccc; background: #fff; border-radius: 8px; }
+
+.categoria h3 { margin: 28px 0 12px; font-size: 18px; }
+.detalle strong { width: 100%; }
+.swatch { min-width: 0; overflow: hidden; }
