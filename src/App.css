@@ -33,3 +33,20 @@ header p { margin: 0 0 16px; color: #666; }
 
 .aviso { background: #e6f4ea; padding: 8px 12px; border-radius: 8px; }
 .error { background: #fde8e8; color: #9b1c1c; padding: 8px 12px; border-radius: 8px; }
+
+.tabs { display: flex; gap: 8px; margin-bottom: 16px; }
+.tabs button {
+  padding: 8px 16px; border: 1px solid #ccc; background: #fff; border-radius: 999px;
+}
+.tabs button.activa { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
+
+.combinar input[type='color'] { width: 64px; height: 48px; padding: 0; border: none; background: none; }
+.swatches.grande { height: 140px; border-radius: 12px; overflow: hidden; }
+.contrastes { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; font-size: 14px; }
+.contrastes li { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.punto { width: 16px; height: 16px; border-radius: 50%; border: 1px solid #0003; }
+
+.probador { border-radius: 12px; padding: 16px; display: grid; gap: 8px; border: 1px solid #0002; }
+.probador h3, .probador p { margin: 0; }
+.probador button { justify-self: start; padding: 8px 14px; border: none; border-radius: 8px; }
+.form button.primario { background: #1a1a1a; color: #fff; border-color: #1a1a1a; padding: 8px 12px; border-radius: 8px; }

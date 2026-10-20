@@ -1,6 +1,5 @@
 import { useState } from 'react'
-
-const MOODS = ['cálida', 'fría', 'pastel', 'oscura', 'retro', 'neutra']
+import { MOODS } from '../utils/constantes'
 
 export default function PaletteForm({ editando, onGuardar, onCancelar }) {
   const [name, setName] = useState(editando?.name ?? '')

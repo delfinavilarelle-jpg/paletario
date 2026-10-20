@@ -6,6 +6,7 @@ import {
 } from './services/palettes'
 import PaletteForm from './components/PaletteForm'
 import PaletteCard from './components/PaletteCard'
+import Combinar from './components/Combinar'
 import './App.css'
 
 export default function App() {
@@ -16,6 +17,7 @@ export default function App() {
   const [aviso, setAviso] = useState('')
   const [editando, setEditando] = useState(null)
   const [formKey, setFormKey] = useState(0)
+  const [vista, setVista] = useState('coleccion')
 
   useEffect(() => {
     if (!configurado) {
@@ -72,6 +74,12 @@ export default function App() {
       }
     }, editando ? 'Paleta actualizada' : 'Paleta guardada')
 
+  const guardarCombinacion = (datos) =>
+    ejecutar(
+      () => agregarPaleta(uid, { ...datos, status: 'idea', favorite: false }),
+      'Paleta guardada en tu colección'
+    )
+
   const cambiarEstado = (id, status) =>
     ejecutar(() => actualizarPaleta(uid, id, { status }), 'Estado actualizado')
 
@@ -106,31 +114,54 @@ export default function App() {
       {aviso && <p className="aviso">{aviso}</p>}
       {error && <p className="error">{error}</p>}
 
-      <PaletteForm
-        key={editando?.id ?? `nueva-${formKey}`}
-        editando={editando}
-        onGuardar={guardar}
-        onCancelar={() => setEditando(null)}
-      />
+      <nav className="tabs">
+        <button
+          className={vista === 'coleccion' ? 'activa' : ''}
+          onClick={() => setVista('coleccion')}
+        >
+          Mi colección ({paletas.length})
+        </button>
+        <button
+          className={vista === 'combinar' ? 'activa' : ''}
+          onClick={() => setVista('combinar')}
+        >
+          Combinar
+        </button>
+      </nav>
 
-      <section className="lista">
-        {cargando && <p>Cargando…</p>}
-        {!cargando && paletas.length === 0 && <p>Todavía no guardaste ninguna paleta.</p>}
-        {paletas.map((p) => (
-          <PaletteCard
-            key={p.id}
-            paleta={p}
-            onEstado={cambiarEstado}
-            onFavorita={alternarFavorita}
-            onEditar={(paleta) => {
-              setEditando(paleta)
-              window.scrollTo({ top: 0, behavior: 'smooth' })
-            }}
-            onEliminar={eliminar}
-            onCopiar={copiar}
+      {vista === 'combinar' && (
+        <Combinar onGuardar={guardarCombinacion} onCopiar={copiar} />
+      )}
+
+      {vista === 'coleccion' && (
+        <>
+          <PaletteForm
+            key={editando?.id ?? `nueva-${formKey}`}
+            editando={editando}
+            onGuardar={guardar}
+            onCancelar={() => setEditando(null)}
           />
-        ))}
-      </section>
+
+          <section className="lista">
+            {cargando && <p>Cargando…</p>}
+            {!cargando && paletas.length === 0 && <p>Todavía no guardaste ninguna paleta.</p>}
+            {paletas.map((p) => (
+              <PaletteCard
+                key={p.id}
+                paleta={p}
+                onEstado={cambiarEstado}
+                onFavorita={alternarFavorita}
+                onEditar={(paleta) => {
+                  setEditando(paleta)
+                  window.scrollTo({ top: 0, behavior: 'smooth' })
+                }}
+                onEliminar={eliminar}
+                onCopiar={copiar}
+              />
+            ))}
+          </section>
+        </>
+      )}
     </main>
   )
 }
