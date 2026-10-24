@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&family=DM+Mono&display=swap');
+
+.gal { --vino: #6b1010; --tinta: #1d1b1a; font-family: 'Bricolage Grotesque', system-ui, sans-serif; color: var(--tinta);
+  padding: 40px clamp(16px, 4vw, 40px) 72px; background: linear-gradient(135deg, #fdf1e4, #e8f0fa 55%, #f2e8f7); min-height: 70vh; }
+.gal code { font-family: 'DM Mono', monospace; }
+.gal-in { max-width: 1200px; margin: 0 auto; }
+.gal-cab h2 { margin: 0 0 8px; font-weight: 600; font-size: clamp(26px, 4vw, 44px); }
+.gal-cab p { margin: 0 0 28px; max-width: 62ch; font-size: 18px; line-height: 1.5; }
+
+/* filtros, con las mismas pastillas del menú */
+.gal-filtros { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 20px; }
+.gal-tabs { display: flex; gap: 8px; }
+.gal-tabs button { padding: 8px 18px; border-radius: 999px; border: 1px solid #ccc; background: #fff; font: inherit; cursor: pointer; transition: background .15s, color .15s; }
+.gal-tabs button:hover, .gal-tabs button.activa { background: var(--vino); color: #fff; border-color: var(--vino); }
+.gal-busca, .gal-select { padding: 9px 16px; border: 1px solid #ccc; border-radius: 999px; background: #fff; font: inherit; color: var(--tinta); }
+.gal-busca { flex: 1 1 200px; min-width: 0; }
+.gal-aviso, .gal-vacio { margin: 0 0 8px; color: #555; font-size: 15px; }
+
+.gal-seccion h3 { display: flex; align-items: center; gap: 14px; margin: 36px 0 16px; font-size: 24px; font-weight: 600; }
+.gal-seccion h3::after { content: ''; flex: 1; height: 1px; background: #d8d2c6; }
+
+/* galería */
+.gal-grilla { display: grid; gap: 24px; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); margin-top: 8px; }
+.gal-card { display: flex; flex-direction: column; background: #fffdfa; border: 1px solid #e3dfd6; border-radius: 28px; overflow: hidden;
+  transition: transform .2s, box-shadow .2s; }
+.gal-card:hover, .gal-card:focus-within { transform: translateY(-4px); box-shadow: 0 12px 28px #0002; }
+.gal-tira { display: flex; height: 190px; }
+.gal-tira button { flex: 1; min-width: 0; border: none; padding: 0 0 12px; font: 12px 'DM Mono', monospace; display: flex; align-items: flex-end;
+  justify-content: center; cursor: pointer; overflow: hidden; transition: flex .25s ease; }
+.gal-tira button.sel { box-shadow: inset 0 -6px 0 #0005; }
+@media (hover: hover) {
+  .gal-tira:hover button { flex: .8; }
+  .gal-tira button:hover { flex: 2.4; }
+}
+.gal-cuerpo { display: flex; flex-direction: column; gap: 6px; padding: 18px 20px 20px; flex: 1; }
+.gal-cuerpo h3 { margin: 0; font-size: 22px; font-weight: 600; }
+.gal-meta { margin: 0; color: #6a665e; font-size: 14px; }
+.gal-detalle { margin: 6px 0 0; display: flex; flex-wrap: wrap; gap: 4px 10px; font-size: 13px; }
+.gal-detalle strong { width: 100%; font-weight: 600; }
+.gal-nota { margin: 0; font-size: 13px; line-height: 1.45; color: #6a665e; }
+.gal-acciones { margin-top: auto; padding-top: 14px; display: flex; gap: 10px; align-items: center; }
+
+/* mismo comportamiento que Guardar y Reiniciar: claro y, al pasar el mouse, morado */
+.gal-btn { flex: 1; border: none; border-radius: 999px; padding: 12px 16px; font: inherit; font-size: 16px; cursor: pointer;
+  background: #c092dc; color: #35184d; transition: background .15s, color .15s; }
+.gal-btn:hover:not(:disabled), .gal-btn:focus-visible { background: #7b26b2; color: #fff; }
+.gal-btn:disabled { background: #e6dbee; color: #5f4f6b; cursor: default; }
+.gal-fav { width: 46px; height: 46px; flex: none; display: grid; place-items: center; border-radius: 50%; border: 1px solid #ccc; background: #fff; cursor: pointer;
+  transition: border-color .15s, transform .15s; }
+.gal-fav:hover, .gal-fav:focus-visible { border-color: var(--vino); transform: scale(1.08); }
+
+@media (max-width: 600px) {
+  .gal { padding-top: 24px; }
+  .gal-cab p { font-size: 16px; }
+  .gal-grilla { grid-template-columns: 1fr; }
+  .gal-tira { height: 150px; }
+  .gal-filtros > * { flex: 1 1 100%; }
+  .gal-tabs button { flex: 1; }
+  .gal-select { width: 100%; }
+}

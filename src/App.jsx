@@ -7,7 +7,7 @@ import Testeo from './components/Testeo'
 import Explorar from './components/Explorar'
 import './App.css'
 
-const PAGINAS_ANCHAS = ['home', 'coleccion', 'combinar']
+const PAGINAS_ANCHAS = ['home', 'coleccion', 'combinar', 'explorar']
 
 export default function App() {
   const [uid, setUid] = useState(null)
@@ -102,7 +102,9 @@ export default function App() {
       {vista === 'combinar' && (
         <Testeo paletas={paletas} onActualizar={editarPaleta} onAprobar={aprobar} onCopiar={copiar} />
       )}
-      {vista === 'explorar' && <Explorar onGuardar={guardarPaleta} onCopiar={copiar} />}
+      {vista === 'explorar' && (
+        <Explorar paletas={paletas} onGuardar={guardarPaleta} onFavorita={alternarFavorita} onCopiar={copiar} />
+      )}
     </main>
   )
 }
