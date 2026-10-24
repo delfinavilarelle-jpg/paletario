@@ -1,0 +1,41 @@
+.cmb { --vino: #6b1010; --tinta: #1d1b1a; font-family: 'Bricolage Grotesque', system-ui, sans-serif; color: var(--tinta);
+  padding: 40px clamp(16px, 5vw, 72px) 72px; background: linear-gradient(135deg, #fdf1e4, #e8f0fa 55%, #f2e8f7); }
+.cmb code { font-family: 'DM Mono', monospace; }
+.cmb-cab h2 { font-weight: 600; font-size: clamp(26px, 4vw, 44px); margin: 0 0 8px; }
+.cmb-cab p { margin: 0 0 32px; max-width: 60ch; font-size: 18px; line-height: 1.5; }
+
+.cmb-grid { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); align-items: start; }
+.cmb-col { display: grid; gap: 24px; }
+.cmb-card { display: grid; gap: 16px; padding: 24px 28px; border-radius: 28px; background: #f3f1ec; border: 1px solid #e3dfd6; transition: box-shadow .2s, transform .2s; }
+.cmb-card:hover { box-shadow: 0 8px 24px #0001; transform: translateY(-2px); }
+.cmb-card h3 { margin: 0; font-size: 22px; font-weight: 600; }
+.cmb-card .selector { padding: 0; border: none; background: transparent; max-width: none; }
+
+.cmb-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.cmb-chips button, .cmb-pill { padding: 8px 16px; border-radius: 999px; border: 1px solid #ccc; background: #fff; font: inherit; cursor: pointer; transition: background .15s, color .15s; }
+.cmb-chips button:hover, .cmb-chips button.activa, .cmb-pill:hover, .cmb-pill.principal { background: var(--vino); color: #fff; border-color: var(--vino); }
+.cmb-pill { justify-self: start; font-weight: 600; }
+.cmb-pill.principal:hover { background: #4d0a0a; }
+
+.cmb-tira { display: flex; gap: 8px; }
+.cmb-tira button { flex: 1; min-width: 0; height: 150px; border: none; border-radius: 16px; font-family: 'DM Mono', monospace; font-size: 12px;
+  display: flex; align-items: flex-end; justify-content: center; padding: 10px 2px; cursor: pointer; transition: transform .2s; overflow: hidden; }
+.cmb-tira button:hover { transform: translateY(-6px); }
+.cmb-tira button.sel { outline: 3px solid var(--tinta); outline-offset: 2px; }
+.cmb-detalle { margin: 0; display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: 14px; }
+
+.cmb-contrastes { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.cmb-contrastes li { display: flex; flex-wrap: wrap; gap: 8px 20px; align-items: center; padding: 10px 16px; border-radius: 14px; font-size: 14px; font-weight: 600; }
+.cmb-contrastes code { min-width: 76px; }
+
+.cmb-probador { border-radius: 20px; padding: 20px; display: grid; gap: 12px; border: 1px solid #0002; }
+.cmb-prob-barra { display: flex; justify-content: space-between; align-items: center; }
+.cmb-prob-barra span { width: 28px; height: 28px; border-radius: 50%; }
+.cmb-probador h4 { margin: 0; font-size: 26px; font-weight: 600; }
+.cmb-probador p { margin: 0; }
+.cmb-prob-fila { display: flex; flex-wrap: wrap; gap: 10px; }
+.cmb-prob-fila button { padding: 10px 18px; border-radius: 999px; border: 2px solid transparent; font: inherit; font-weight: 600; }
+.cmb-prob-fila button.sec { background: transparent; }
+
+.cmb-campo { display: grid; gap: 6px; font-size: 14px; color: #6a665e; }
+.cmb-campo input { padding: 12px 14px; border: 1px solid #ccc; border-radius: 14px; font: inherit; background: #fff; color: var(--tinta); }

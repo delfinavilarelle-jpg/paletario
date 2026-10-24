@@ -84,3 +84,17 @@ export function contraste(a, b) {
   const [alto, bajo] = la > lb ? [la, lb] : [lb, la]
   return (alto + 0.05) / (bajo + 0.05)
 }
+
+// HSV (el modelo del selector tipo Paint): tono 0-360, saturación y brillo 0-100
+export function hsvAHex({ h, s, v }) {
+  const l = (v / 100) * (1 - s / 200)
+  const sl = l === 0 || l === 1 ? 0 : (v / 100 - l) / Math.min(l, 1 - l)
+  return hslAHex({ h, s: sl * 100, l: l * 100 })
+}
+
+export function hexAHsv(hex) {
+  const { h, s, l } = hexAHsl(hex)
+  const sn = s / 100, ln = l / 100
+  const v = ln + sn * Math.min(ln, 1 - ln)
+  return { h, s: v === 0 ? 0 : 2 * (1 - ln / v) * 100, v: v * 100 }
+}
