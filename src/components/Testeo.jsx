@@ -1,17 +1,31 @@
 import { useState } from 'react'
-import { MockWeb, MockApp, MockPoster } from './Mockups'
+import { MockWeb, MockApp, MockPoster, MockRopa, MockAmbiente } from './Mockups'
 import EditorPaleta from './EditorPaleta'
 import Corazon from './Corazon'
 import { textoSobre } from '../utils/color'
 import './paletas.css'
 
-const DEMO = ['#27E3D9', '#C10AC2', '#FFE224', '#000000']
-const TIPOS = [
-  { id: 'web', titulo: 'Tu paleta en una web', Comp: MockWeb },
-  { id: 'app', titulo: 'Tu paleta en una app', Comp: MockApp },
-  { id: 'poster', titulo: 'Tu paleta en un póster', Comp: MockPoster },
-]
-const DONDE = [['todo', 'En todo'], ['web', 'Web'], ['app', 'App'], ['poster', 'Póster']]
+const MODOS = {
+  digital: {
+    titulo: 'Testeo de paleta',
+    intro: 'Probá cómo funciona tu paleta en una web, en una app y en un póster.',
+    demo: ['#27E3D9', '#C10AC2', '#FFE224', '#000000'],
+    tipos: [
+      { id: 'web', nombre: 'Web', titulo: 'Tu paleta en una web', Comp: MockWeb },
+      { id: 'app', nombre: 'App', titulo: 'Tu paleta en una app', Comp: MockApp },
+      { id: 'poster', nombre: 'Póster', titulo: 'Tu paleta en un póster', Comp: MockPoster },
+    ],
+  },
+  mundo: {
+    titulo: 'Ropa y ambientes',
+    intro: 'Probá cómo se ve tu paleta en un outfit y en un ambiente, como un living.',
+    demo: ['#3B2F2F', '#8B5E3C', '#C28E5C', '#E6D3B3', '#5B6B4E'],
+    tipos: [
+      { id: 'ropa', nombre: 'Ropa', titulo: 'Tu paleta en un outfit', Comp: MockRopa },
+      { id: 'ambiente', nombre: 'Ambiente', titulo: 'Tu paleta en un ambiente', Comp: MockAmbiente },
+    ],
+  },
+}
 
 function Bloque({ tipo, base, aprobada, puedeAprobar, onAprobar, onEditar, onCopiar }) {
   const [orden, setOrden] = useState(() => base.map((_, i) => i))
@@ -33,7 +47,7 @@ function Bloque({ tipo, base, aprobada, puedeAprobar, onAprobar, onEditar, onCop
       <div className="tes-ctrl">
         <div className="tes-tira">
           {colores.map((c, i) => (
-            <button key={i} type="button" style={{ background: c, color: textoSobre(c) }} title={`Copiar ${c}`} onClick={() => onCopiar(c)} />
+            <button key={i} type="button" style={{ background: c, color: textoSobre(c) }} title={`Copiar ${c}`} aria-label={`Copiar ${c}`} onClick={() => onCopiar(c)} />
           ))}
         </div>
         <button type="button" className="pill btn-azul" onClick={mezclar}>Mezclar paleta</button>
@@ -46,12 +60,13 @@ function Bloque({ tipo, base, aprobada, puedeAprobar, onAprobar, onEditar, onCop
   )
 }
 
-export default function Testeo({ paletas, onActualizar, onAprobar, onCopiar }) {
+export default function Testeo({ modo = 'digital', paletas, onActualizar, onAprobar, onCopiar }) {
+  const cfg = MODOS[modo]
   const [tab, setTab] = useState('guardados')
   const [elegidaId, setElegidaId] = useState(null)
   const [donde, setDonde] = useState('todo')
   const [editor, setEditor] = useState(null)
-  const [demo, setDemo] = useState(DEMO)
+  const [demo, setDemo] = useState(cfg.demo)
 
   const lista = tab === 'favoritos' ? paletas.filter((p) => p.favorite) : paletas
   const elegida = paletas.find((p) => p.id === elegidaId) ?? lista[0] ?? paletas[0] ?? null
@@ -67,46 +82,48 @@ export default function Testeo({ paletas, onActualizar, onAprobar, onCopiar }) {
 
   return (
     <div className="pag tes">
-      <header className="tes-cab"><h2>Testeo de paleta</h2></header>
+      <header className="tes-cab">
+        <h2>{cfg.titulo}</h2>
+        <p>{cfg.intro}</p>
+      </header>
 
       <div className="tes-in">
-
-      <div className="tes-barra">
-        <div className="tes-tabs">
-          <button type="button" className={`pill ${tab === 'favoritos' ? 'btn-azul' : 'btn-lav'}`} onClick={() => setTab('favoritos')}>
-            Favoritos <span className="blanco"><Corazon lleno size={22} /></span>
-          </button>
-          <button type="button" className={`pill ${tab === 'guardados' ? 'btn-azul' : 'btn-lav'}`} onClick={() => setTab('guardados')}>Guardados</button>
+        <div className="tes-barra">
+          <div className="tes-tabs">
+            <button type="button" className={`pill ${tab === 'favoritos' ? 'btn-azul' : 'btn-lav'}`} onClick={() => setTab('favoritos')}>
+              Favoritos <span className="blanco"><Corazon lleno size={22} /></span>
+            </button>
+            <button type="button" className={`pill ${tab === 'guardados' ? 'btn-azul' : 'btn-lav'}`} onClick={() => setTab('guardados')}>Guardados</button>
+          </div>
+          <label className="tes-donde">Donde testear
+            <select value={donde} onChange={(e) => setDonde(e.target.value)}>
+              <option value="todo">En todo</option>
+              {cfg.tipos.map((t) => <option key={t.id} value={t.id}>{t.nombre}</option>)}
+            </select>
+          </label>
         </div>
-        <label className="tes-donde">Donde testear
-          <select value={donde} onChange={(e) => setDonde(e.target.value)}>
-            {DONDE.map(([v, t]) => <option key={v} value={v}>{t}</option>)}
-          </select>
-        </label>
-      </div>
 
-      <div className="tes-paletas">
-        {lista.length === 0 && (
-          <p className="nota">
-            {tab === 'favoritos' ? 'Todavía no tenés favoritas: tocá el corazón en una paleta de «Creación de paletas».' : 'Todavía no guardaste paletas.'}
-            {' '}Mientras tanto probá una de ejemplo.
-          </p>
-        )}
-        {lista.map((p) => (
-          <button key={p.id} type="button" className={`mini ${elegida?.id === p.id ? 'sel' : ''}`} onClick={() => setElegidaId(p.id)}>
-            <span className="mini-tira">{p.colors.map((c, i) => <i key={i} style={{ background: c }} />)}</span>
-            <span>{p.name}</span>
-            {p.favorite && <Corazon lleno size={16} />}
-          </button>
+        <div className="tes-paletas">
+          {lista.length === 0 && (
+            <p className="nota">
+              {tab === 'favoritos' ? 'Todavía no tenés favoritas: tocá el corazón en una paleta de «Creación de paletas» o de «Ideas para paletas».' : 'Todavía no guardaste paletas.'}
+              {' '}Mientras tanto probá una de ejemplo.
+            </p>
+          )}
+          {lista.map((p) => (
+            <button key={p.id} type="button" className={`mini ${elegida?.id === p.id ? 'sel' : ''}`} onClick={() => setElegidaId(p.id)}>
+              <span className="mini-tira">{p.colors.map((c, i) => <i key={i} style={{ background: c }} />)}</span>
+              <span>{p.name}</span>
+              {p.favorite && <Corazon lleno size={16} />}
+            </button>
+          ))}
+        </div>
+
+        {cfg.tipos.filter((t) => donde === 'todo' || donde === t.id).map((tipo) => (
+          <Bloque key={`${modo}-${tipo.id}-${elegida?.id ?? 'demo'}-${base.join('')}`} tipo={tipo} base={base}
+            aprobada={elegida?.status === 'aprobada'} puedeAprobar={!!elegida}
+            onAprobar={() => onAprobar(elegida)} onEditar={(colores) => setEditor({ colores })} onCopiar={onCopiar} />
         ))}
-      </div>
-
-      {TIPOS.filter((t) => donde === 'todo' || donde === t.id).map((tipo) => (
-        <Bloque key={`${tipo.id}-${elegida?.id ?? 'demo'}-${base.join('')}`} tipo={tipo} base={base}
-          aprobada={elegida?.status === 'aprobada'} puedeAprobar={!!elegida}
-          onAprobar={() => onAprobar(elegida)} onEditar={(colores) => setEditor({ colores })} onCopiar={onCopiar} />
-      ))}
-
       </div>
 
       {editor && (

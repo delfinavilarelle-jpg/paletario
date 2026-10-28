@@ -1,9 +1,13 @@
 * { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
 body {
   margin: 0;
-  font-family: system-ui, sans-serif;
+  font-family: 'Bricolage Grotesque', system-ui, sans-serif;
   background: #f4f4f2;
   color: #1a1a1a;
+  -webkit-font-smoothing: antialiased;
 }
+img, svg { max-width: 100%; }
 button, select, input { font: inherit; }
 button { cursor: pointer; }
+:focus-visible { outline: 3px solid #7b26b2; outline-offset: 2px; }

@@ -7,7 +7,13 @@ import Testeo from './components/Testeo'
 import Explorar from './components/Explorar'
 import './App.css'
 
-const PAGINAS_ANCHAS = ['home', 'coleccion', 'combinar', 'explorar']
+const MENU = [
+  ['home', 'Home'],
+  ['coleccion', 'Creación de paletas'],
+  ['combinar', 'Combinaciones'],
+  ['mundo', 'Ropa y ambientes'],
+  ['explorar', 'Ideas para paletas'],
+]
 
 export default function App() {
   const [uid, setUid] = useState(null)
@@ -16,6 +22,7 @@ export default function App() {
   const [error, setError] = useState('')
   const [aviso, setAviso] = useState('')
   const [vista, setVista] = useState('home')
+  const [menu, setMenu] = useState(false)
 
   useEffect(() => {
     if (!configurado) {
@@ -37,6 +44,19 @@ export default function App() {
       .catch((e) => { setError(e.message); setCargando(false) })
     return () => { activo = false; cortar() }
   }, [])
+
+  // El menú de celular se cierra con Escape
+  useEffect(() => {
+    const tecla = (e) => e.key === 'Escape' && setMenu(false)
+    window.addEventListener('keydown', tecla)
+    return () => window.removeEventListener('keydown', tecla)
+  }, [])
+
+  const irA = (id) => {
+    setVista(id)
+    setMenu(false)
+    window.scrollTo({ top: 0 })
+  }
 
   // Ejecuta una operación con Firestore, muestra el aviso y devuelve true si salió bien
   async function ejecutar(accion, mensaje) {
@@ -71,40 +91,59 @@ export default function App() {
 
   if (!configurado) {
     return (
-      <main className="app">
-        <h1>matices</h1>
+      <main className="app-config">
+        <h1>Matices</h1>
         <p className="error">Falta configurar Firebase: revisá el archivo .env y reiniciá npm run dev.</p>
       </main>
     )
   }
 
   return (
-    <main className={`app ${PAGINAS_ANCHAS.includes(vista) ? 'app-home' : ''}`}>
+    <div className="app">
       <div className="barra">
-        <header className="marca">
-          <img src="/home/logo-bote.png" alt="matices" height="40" />
-        </header>
-        <nav className="tabs">
-          {[['home', 'Home'], ['coleccion', 'Creación de paletas'], ['combinar', 'Combinaciones'], ['explorar', 'Ideas para paletas']].map(([id, texto]) => (
-            <button key={id} className={vista === id ? 'activa' : ''} onClick={() => setVista(id)}>{texto}</button>
-          ))}
-        </nav>
+        <div className="barra-in">
+          <button type="button" className="marca" aria-label="Matices, ir al inicio" onClick={() => irA('home')}>
+            <img src="/home/logo-bote.png" alt="" height="40" />
+            <span>Matices</span>
+          </button>
+          <button type="button" className="menu-btn" aria-label={menu ? 'Cerrar menú' : 'Abrir menú'}
+            aria-expanded={menu} aria-controls="menu-principal" onClick={() => setMenu(!menu)}>
+            <span /><span /><span />
+          </button>
+          <nav id="menu-principal" className={`tabs ${menu ? 'abierto' : ''}`} aria-label="Menú principal">
+            {MENU.map(([id, texto]) => (
+              <button key={id} type="button" className={vista === id ? 'activa' : ''}
+                aria-current={vista === id ? 'page' : undefined} onClick={() => irA(id)}>{texto}</button>
+            ))}
+          </nav>
+        </div>
       </div>
 
-      {aviso && <p className="aviso">{aviso}</p>}
-      {error && <p className="error">{error}</p>}
+      <main className="contenido">
+        {vista === 'home' && <Home onCopiar={copiar} />}
+        {vista === 'coleccion' && (
+          <Creacion paletas={paletas} cargando={cargando} onGuardar={guardarPaleta} onEditar={editarPaleta}
+            onEliminar={eliminar} onFavorita={alternarFavorita} onCopiar={copiar} />
+        )}
+        {vista === 'combinar' && (
+          <Testeo modo="digital" paletas={paletas} onActualizar={editarPaleta} onAprobar={aprobar} onCopiar={copiar} />
+        )}
+        {vista === 'mundo' && (
+          <Testeo modo="mundo" paletas={paletas} onActualizar={editarPaleta} onAprobar={aprobar} onCopiar={copiar} />
+        )}
+        {vista === 'explorar' && (
+          <Explorar paletas={paletas} onGuardar={guardarPaleta} onFavorita={alternarFavorita} onCopiar={copiar} />
+        )}
+      </main>
 
-      {vista === 'home' && <Home onCopiar={copiar} />}
-      {vista === 'coleccion' && (
-        <Creacion paletas={paletas} cargando={cargando} onGuardar={guardarPaleta} onEditar={editarPaleta}
-          onEliminar={eliminar} onFavorita={alternarFavorita} onCopiar={copiar} />
-      )}
-      {vista === 'combinar' && (
-        <Testeo paletas={paletas} onActualizar={editarPaleta} onAprobar={aprobar} onCopiar={copiar} />
-      )}
-      {vista === 'explorar' && (
-        <Explorar paletas={paletas} onGuardar={guardarPaleta} onFavorita={alternarFavorita} onCopiar={copiar} />
-      )}
-    </main>
+      <footer className="pie-pagina">
+        <img src="/home/logo-bote.png" alt="" height="28" />
+        <p><strong>Matices</strong> · by Delfina Vilarelle</p>
+        <p>TP2 Desarrollo Frontend II · UADE · 2026</p>
+      </footer>
+
+      {aviso && <p className="toast aviso" role="status">{aviso}</p>}
+      {error && <p className="toast error" role="alert">{error}</p>}
+    </div>
   )
 }

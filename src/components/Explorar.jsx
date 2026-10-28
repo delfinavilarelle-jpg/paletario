@@ -66,6 +66,7 @@ export default function Explorar({ paletas, onGuardar, onFavorita, onCopiar }) {
   const [grupo, setGrupo] = useState('paletas')
   const [mood, setMood] = useState('todas')
   const [categoria, setCategoria] = useState('todas')
+  const [uso, setUso] = useState('todos')
   const [busqueda, setBusqueda] = useState('')
 
   const guardadas = new Map(paletas.map((p) => [clave(p.name, p.colors), p]))
@@ -73,7 +74,8 @@ export default function Explorar({ paletas, onGuardar, onFavorita, onCopiar }) {
     (mood === 'todas' || moodsDe(p).includes(mood)) &&
     p.name.toLowerCase().includes(busqueda.trim().toLowerCase())
 
-  const lista = PALETAS.filter(coincide)
+  const usos = [...new Set(PALETAS.map((p) => p.uso))]
+  const lista = PALETAS.filter((p) => coincide(p) && (uso === 'todos' || p.uso === uso))
   const secciones = CATEGORIAS.filter((c) => categoria === 'todas' || categoria === c)
     .map((c) => ({ nombre: c, items: MARCAS.filter((m) => m.categoria === c && coincide(m)) }))
     .filter((s) => s.items.length > 0)
@@ -106,6 +108,12 @@ export default function Explorar({ paletas, onGuardar, onFavorita, onCopiar }) {
             <option value="todas">Todos los moods</option>
             {MOODS.map((m) => <option key={m} value={m}>{m}</option>)}
           </select>
+          {grupo === 'paletas' && (
+            <select className="gal-select" aria-label="Filtrar por uso" value={uso} onChange={(ev) => setUso(ev.target.value)}>
+              <option value="todos">Todos los usos</option>
+              {usos.map((u) => <option key={u} value={u}>{u}</option>)}
+            </select>
+          )}
           {grupo === 'marcas' && (
             <select className="gal-select" aria-label="Filtrar por categoría" value={categoria} onChange={(e) => setCategoria(e.target.value)}>
               <option value="todas">Todas las categorías</option>

@@ -16,6 +16,22 @@ export const PALETAS = [
     colors: ['#0B3D2E', '#1F6F4A', '#5FA777', '#B7D9A8', '#F2F7E9'] },
   { name: 'Videoclub 90s', mood: 'retro', uso: 'web',
     colors: ['#1A1B41', '#41EAD4', '#BAFF39', '#FF206E', '#FBFF12'] },
+  { name: 'Otoño urbano', mood: 'cálida', uso: 'ropa',
+    colors: ['#3B2F2F', '#8B5E3C', '#C28E5C', '#E6D3B3', '#5B6B4E'] },
+  { name: 'Streetwear neutro', mood: 'neutra', uso: 'ropa',
+    colors: ['#1C1C1E', '#4A4A4D', '#9A9A9F', '#D8D6D0', '#F2F0EB'] },
+  { name: 'Verano costero', mood: 'fría', uso: 'ropa',
+    colors: ['#0F4C5C', '#2A9D8F', '#E9C46A', '#F4A261', '#FDF3E3'] },
+  { name: 'Pastel de primavera', mood: 'pastel', uso: 'ropa',
+    colors: ['#F8C8DC', '#C8E6C9', '#FFF3B0', '#BFD7EA', '#FFFFFF'] },
+  { name: 'Living nórdico', mood: 'neutra', uso: 'ambiente',
+    colors: ['#F4F1EA', '#D9D2C5', '#A8B5A2', '#6F7F73', '#3A3F3C'] },
+  { name: 'Dormitorio en calma', mood: 'fría', uso: 'ambiente',
+    colors: ['#E8EEF2', '#B7C9D6', '#7D98A8', '#4A6275', '#F2E9E1'] },
+  { name: 'Cocina terracota', mood: 'cálida', uso: 'ambiente',
+    colors: ['#F7EDE2', '#E2B49A', '#C8704F', '#8C4A33', '#3E2C25'] },
+  { name: 'Estudio creativo', mood: 'oscura', uso: 'ambiente',
+    colors: ['#1F2430', '#394867', '#9BA4B5', '#E8B94A', '#F4F4F2'] },
 ]
 
 export const CATEGORIAS = [
