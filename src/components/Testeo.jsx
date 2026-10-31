@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { MockWeb, MockApp, MockPoster, MockRopa, MockAmbiente } from './Mockups'
+import { MockWeb, MockApp, MockPoster } from './Mockups'
+import Probador from './Probador'
 import EditorPaleta from './EditorPaleta'
 import Corazon from './Corazon'
 import { textoSobre } from '../utils/color'
@@ -11,19 +12,16 @@ const MODOS = {
     intro: 'Probá cómo funciona tu paleta en una web, en una app y en un póster.',
     demo: ['#27E3D9', '#C10AC2', '#FFE224', '#000000'],
     tipos: [
-      { id: 'web', nombre: 'Web', titulo: 'Tu paleta en una web', Comp: MockWeb },
-      { id: 'app', nombre: 'App', titulo: 'Tu paleta en una app', Comp: MockApp },
-      { id: 'poster', nombre: 'Póster', titulo: 'Tu paleta en un póster', Comp: MockPoster },
+      { id: 'web', nombre: 'Web', titulo: 'Tu paleta en una web', Comp: MockWeb, ancho: 600 },
+      { id: 'app', nombre: 'App', titulo: 'Tu paleta en una app', Comp: MockApp, ancho: 300 },
+      { id: 'poster', nombre: 'Póster', titulo: 'Tu paleta en un póster', Comp: MockPoster, ancho: 420 },
     ],
   },
   mundo: {
     titulo: 'Ropa y ambientes',
-    intro: 'Probá cómo se ve tu paleta en un outfit y en un ambiente, como un living.',
-    demo: ['#3B2F2F', '#8B5E3C', '#C28E5C', '#E6D3B3', '#5B6B4E'],
-    tipos: [
-      { id: 'ropa', nombre: 'Ropa', titulo: 'Tu paleta en un outfit', Comp: MockRopa },
-      { id: 'ambiente', nombre: 'Ambiente', titulo: 'Tu paleta en un ambiente', Comp: MockAmbiente },
-    ],
+    intro: 'Armá un outfit o un ambiente pieza por pieza: elegí qué color lleva cada prenda o cada mueble y mirá si la proporción funciona.',
+    demo: ['#E6D3B3', '#3B2F2F', '#8B5E3C', '#5B6B4E', '#C28E5C'],
+    tipos: [],
   },
 }
 
@@ -42,8 +40,8 @@ function Bloque({ tipo, base, aprobada, puedeAprobar, onAprobar, onEditar, onCop
   }
 
   return (
-    <section className="tes-bloque" aria-label={tipo.titulo}>
-      <div className={`tes-mock ${tipo.id}`}><Mock c={colores} /></div>
+    <section className="tes-bloque" aria-label={tipo.titulo} style={{ '--mock': `${tipo.ancho}px` }}>
+      <div className={`tes-mock mock-${tipo.id}`}><Mock c={colores} /></div>
       <div className="tes-ctrl">
         <div className="tes-tira">
           {colores.map((c, i) => (
@@ -95,12 +93,14 @@ export default function Testeo({ modo = 'digital', paletas, onActualizar, onApro
             </button>
             <button type="button" className={`pill ${tab === 'guardados' ? 'btn-azul' : 'btn-lav'}`} onClick={() => setTab('guardados')}>Guardados</button>
           </div>
-          <label className="tes-donde">Donde testear
-            <select value={donde} onChange={(e) => setDonde(e.target.value)}>
-              <option value="todo">En todo</option>
-              {cfg.tipos.map((t) => <option key={t.id} value={t.id}>{t.nombre}</option>)}
-            </select>
-          </label>
+          {cfg.tipos.length > 0 && (
+            <label className="tes-donde">Dónde testear
+              <select value={donde} onChange={(e) => setDonde(e.target.value)}>
+                <option value="todo">En todo</option>
+                {cfg.tipos.map((t) => <option key={t.id} value={t.id}>{t.nombre}</option>)}
+              </select>
+            </label>
+          )}
         </div>
 
         <div className="tes-paletas">
@@ -124,6 +124,12 @@ export default function Testeo({ modo = 'digital', paletas, onActualizar, onApro
             aprobada={elegida?.status === 'aprobada'} puedeAprobar={!!elegida}
             onAprobar={() => onAprobar(elegida)} onEditar={(colores) => setEditor({ colores })} onCopiar={onCopiar} />
         ))}
+
+        {modo === 'mundo' && (
+          <Probador key={`${elegida?.id ?? 'demo'}-${base.join('')}`} colores={base}
+            aprobada={elegida?.status === 'aprobada'} puedeAprobar={!!elegida}
+            onAprobar={() => onAprobar(elegida)} onEditar={() => setEditor({ colores: base })} onCopiar={onCopiar} />
+        )}
       </div>
 
       {editor && (
