@@ -3,11 +3,13 @@ import { textoSobre } from '../utils/color'
 const rol = (c, i) => c[i % c.length]
 
 export function MockWeb({ c }) {
-  const fondo = rol(c, 1), pill = rol(c, 2), img = rol(c, 0), oscuro = rol(c, 3)
+  const [fondo, pill, img, oscuro] = [rol(c, 1), rol(c, 2), rol(c, 0), rol(c, 3)]
   return (
     <svg viewBox="0 0 537 357" className="mock" role="img" aria-label="Tu paleta en una web">
       <rect width="537" height="357" fill={fondo} />
-      {[14, 112, 210].map((x) => <rect key={x} x={x} y="20" width="91" height="26" rx="13" fill={pill} />)}
+      {[14, 112, 210].map((x) => (
+        <rect key={x} x={x} y="20" width="91" height="26" rx="13" fill={pill} />
+      ))}
       <g fill={textoSobre(fondo)} fontSize="18">
         <text x="40" y="104">Aquí pruebas tu</text>
         <text x="40" y="127">paleta en una</text>
@@ -25,7 +27,7 @@ export function MockWeb({ c }) {
 }
 
 export function MockApp({ c }) {
-  const pantalla = rol(c, 1), tarjeta = rol(c, 0), circulos = rol(c, 2), arriba = rol(c, 3), abajo = rol(c, 0)
+  const [pantalla, tarjeta, circulos, arriba] = [rol(c, 1), rol(c, 0), rol(c, 2), rol(c, 3)]
   return (
     <svg viewBox="0 0 311 543" className="mock" role="img" aria-label="Tu paleta en una app">
       <rect width="311" height="543" rx="52" fill="#1D1B1A" />
@@ -36,7 +38,7 @@ export function MockApp({ c }) {
       <clipPath id="bloque-app"><rect x="52" y="280" width="84" height="163" rx="8" /></clipPath>
       <g clipPath="url(#bloque-app)">
         <rect x="52" y="280" width="84" height="103" fill={arriba} />
-        <rect x="52" y="383" width="84" height="60" fill={abajo} />
+        <rect x="52" y="383" width="84" height="60" fill={tarjeta} />
       </g>
       <g fill={textoSobre(pantalla)} fontSize="18">
         <text x="151" y="304">Aquí</text>
@@ -49,14 +51,18 @@ export function MockApp({ c }) {
 }
 
 export function MockPoster({ c }) {
-  const fondo = rol(c, 2), bloque = rol(c, 1), oscuro = rol(c, 3), circulo = rol(c, 0)
+  const [fondo, bloque, oscuro, circulo] = [rol(c, 2), rol(c, 1), rol(c, 3), rol(c, 0)]
   const linea = textoSobre(fondo)
   return (
     <svg viewBox="0 0 437 624" className="mock" role="img" aria-label="Tu paleta en un póster">
       <rect width="437" height="624" fill={fondo} />
       <g stroke={linea} strokeWidth="1.2" opacity=".85">
-        {[41, 103, 164, 225, 274, 335, 398].map((x) => <line key={x} x1={x} y1="0" x2={x} y2="624" />)}
-        {[62, 126, 190, 254, 319, 385, 450, 514, 579].map((y) => <line key={y} x1="0" y1={y} x2="437" y2={y} />)}
+        {[41, 103, 164, 225, 274, 335, 398].map((x) => (
+          <line key={x} x1={x} y1="0" x2={x} y2="624" />
+        ))}
+        {[62, 126, 190, 254, 319, 385, 450, 514, 579].map((y) => (
+          <line key={y} x1="0" y1={y} x2="437" y2={y} />
+        ))}
       </g>
       <polygon points="274,0 398,0 398,190 335,190 335,254 274,254" fill={bloque} />
       <polygon points="0,319 66,319 66,450 122,450 122,624 0,624" fill={oscuro} />

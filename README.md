@@ -10,8 +10,8 @@ Aplicación web para crear, probar y guardar paletas de color. Trabajo Práctico
 - **Home:** teoría del color (familias, tono, saturación, luminosidad, temperatura) y una rueda interactiva con sus combinaciones.
 - **Creación de paletas:** elegir entre 2 y 8 colores en la rueda, ponerles nombre y mood, y guardarlas. Se pueden editar, marcar como favoritas y eliminar.
 - **Combinaciones:** probar una paleta en una web, una app y un póster; mezclar los colores y aprobarla.
-- **Ropa y ambientes:** armar un outfit (casual o formal) o un ambiente (living o dormitorio) pieza por pieza, eligiendo el color de cada prenda o mueble, con una barra que compara el reparto con la regla 60-30-10.
-- **Ideas para paletas:** galería de paletas armadas y de marcas, con buscador, filtros y favoritos.
+- **Ropa y ambientes:** armar un outfit (casual o formal, de mujer o de hombre) o un ambiente (living o dormitorio) pieza por pieza, eligiendo el color de cada prenda o mueble, con una barra que compara el reparto con la regla 60-30-10.
+- **Ideas para paletas:** galería de paletas armadas y de marcas, con buscador, filtros y favoritos. Las marcas que son apps muestran su ícono, que se puede pintar con otra paleta.
 
 ## Tecnologías
 
@@ -70,6 +70,8 @@ src/
   firebase.js             inicialización con las variables de entorno
   services/palettes.js    consultar, agregar, modificar y eliminar
   utils/color.js          conversiones, esquemas y contraste
+  utils/geometria.js      trazos de las ruedas de color
   data/paletas.js         paletas y marcas de la galería
   components/             pantallas (Home, Creacion, Testeo, Probador, Explorar) y piezas
+                          (Escenas, Mockups, IconoApp, RuedaColor, SelectorColor…)
 ```

@@ -2,8 +2,11 @@ import { useRef, useState } from 'react'
 import { hsvAHex, hexAHsv, hexARgb } from '../utils/color'
 
 // Colores básicos de la paleta clásica de Paint
-const BASICOS = ['#000000', '#7F7F7F', '#880015', '#ED1C24', '#FF7F27', '#FFF200', '#22B14C', '#00A2E8', '#3F48CC', '#A349A4',
-  '#FFFFFF', '#C3C3C3', '#B97A57', '#FFAEC9', '#FFC90E', '#EFE4B0', '#B5E61D', '#99D9EA', '#7092BE', '#C8BFE7']
+const BASICOS = [
+  '#000000', '#7F7F7F', '#880015', '#ED1C24', '#FF7F27', '#FFF200', '#22B14C', '#00A2E8',
+  '#3F48CC', '#A349A4', '#FFFFFF', '#C3C3C3', '#B97A57', '#FFAEC9', '#FFC90E', '#EFE4B0',
+  '#B5E61D', '#99D9EA', '#7092BE', '#C8BFE7',
+]
 
 export default function SelectorColor({ hsv, onCambio }) {
   const area = useRef(null)
@@ -20,11 +23,17 @@ export default function SelectorColor({ hsv, onCambio }) {
 
   const escribir = (valor) => {
     setEscribiendo(valor)
-    if (/^#?[0-9a-f]{6}$/i.test(valor)) onCambio(hexAHsv(valor.startsWith('#') ? valor : '#' + valor))
+    if (!/^#?[0-9a-f]{6}$/i.test(valor)) return
+    onCambio(hexAHsv(valor.startsWith('#') ? valor : '#' + valor))
   }
 
   const gotero = async () => {
-    try { onCambio(hexAHsv((await new window.EyeDropper().open()).sRGBHex)) } catch { /* cancelado */ }
+    try {
+      const { sRGBHex } = await new window.EyeDropper().open()
+      onCambio(hexAHsv(sRGBHex))
+    } catch {
+      // la persona canceló el gotero
+    }
   }
 
   return (
@@ -40,7 +49,8 @@ export default function SelectorColor({ hsv, onCambio }) {
       <div className="sel-datos">
         <span className="sel-previa" style={{ background: hex }} />
         <label>HEX
-          <input value={escribiendo ?? hex} onChange={(e) => escribir(e.target.value)} onBlur={() => setEscribiendo(null)} />
+          <input value={escribiendo ?? hex} onChange={(e) => escribir(e.target.value)}
+            onBlur={() => setEscribiendo(null)} />
         </label>
         <code>rgb({r}, {g}, {b})</code>
         {'EyeDropper' in window && <button type="button" onClick={gotero}>Gotero</button>}
@@ -48,7 +58,8 @@ export default function SelectorColor({ hsv, onCambio }) {
 
       <div className="sel-basicos">
         {BASICOS.map((c) => (
-          <button key={c} type="button" style={{ background: c }} title={c} aria-label={c} onClick={() => onCambio(hexAHsv(c))} />
+          <button key={c} type="button" style={{ background: c }} title={c} aria-label={c}
+            onClick={() => onCambio(hexAHsv(c))} />
         ))}
       </div>
     </div>

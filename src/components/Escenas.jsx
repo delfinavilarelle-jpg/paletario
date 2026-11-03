@@ -1,5 +1,6 @@
 // Escenas para probar una paleta pieza por pieza.
-// Cada pieza tiene un peso (cuánto ocupa a la vista) y un rol inicial (qué color de la paleta toma).
+// Cada pieza tiene un peso (cuánto ocupa a la vista) y un rol inicial
+// (qué color de la paleta toma).
 // El dibujo recibe p(id), que devuelve el color, el clic y la marca de selección de esa pieza.
 
 function Casual({ p }) {
@@ -11,7 +12,8 @@ function Casual({ p }) {
         <path d="M150 52q0-40 50-40q50 0 50 40z" />
         <rect x="140" y="48" width="140" height="11" rx="5.5" />
       </g>
-      <path {...p('remera')} d="M120 86L162 66Q200 102 238 66L280 86L328 134L294 164L270 146V276H130V146L106 164L72 134Z" />
+      <path {...p('remera')} d={'M120 86L162 66Q200 102 238 66L280 86 328 134 294 164 270 146'
+        + 'V276H130V146L106 164 72 134Z'} />
       <path d="M162 66Q200 102 238 66Q200 84 162 66Z" fill="#F3F1EC" />
       <rect {...p('detalle')} x="214" y="172" width="36" height="40" rx="5" />
       <path {...p('pantalon')} d="M130 290H270L282 474H214L200 352L186 474H118Z" />
@@ -20,10 +22,11 @@ function Casual({ p }) {
         <path d="M100 478H190V502Q190 510 182 510H108Q100 510 100 502Z" />
         <path d="M210 478H300V502Q300 510 292 510H218Q210 510 210 502Z" />
       </g>
-      <rect x="100" y="502" width="90" height="8" rx="4" fill="#fff" opacity=".85" pointerEvents="none" />
-      <rect x="210" y="502" width="90" height="8" rx="4" fill="#fff" opacity=".85" pointerEvents="none" />
+      <rect x="100" y="502" width="90" height="8" rx="4" fill="#fff" opacity=".85" />
+      <rect x="210" y="502" width="90" height="8" rx="4" fill="#fff" opacity=".85" />
       <g {...p('bolso')}>
-        <path d="M318 330q0-30 30-30q30 0 30 30" fill="none" strokeWidth="8" stroke="currentColor" />
+        <path d="M318 330q0-30 30-30q30 0 30 30" fill="none" strokeWidth="8"
+          stroke="currentColor" />
         <rect x="306" y="326" width="84" height="94" rx="14" />
       </g>
     </svg>
@@ -42,9 +45,10 @@ function Formal({ p }) {
         <path d="M116 80L82 108L70 256H100L112 150Z" />
         <path d="M284 80L318 108L330 256H300L288 150Z" />
       </g>
-      <path d="M166 50L200 180L184 104L176 96Z M234 50L200 180L216 104L224 96Z" fill="#000" opacity=".12" pointerEvents="none" />
+      <path d="M166 50L200 180L184 104L176 96Z M234 50L200 180L216 104L224 96Z" fill="#000"
+        opacity=".12" />
       <rect {...p('panuelo')} x="236" y="124" width="30" height="12" rx="3" />
-      <g fill="#000" opacity=".35" pointerEvents="none">
+      <g fill="#000" opacity=".35">
         <circle cx="200" cy="214" r="4" /><circle cx="200" cy="244" r="4" />
       </g>
       <rect {...p('cinturon')} x="118" y="284" width="164" height="14" />
@@ -57,37 +61,104 @@ function Formal({ p }) {
   )
 }
 
+function CasualMujer({ p }) {
+  return (
+    <svg viewBox="0 0 400 520" className="mock escena" role="img"
+      aria-label="Outfit casual de mujer">
+      <rect width="400" height="520" fill="#F3F1EC" />
+      <ellipse cx="200" cy="506" rx="150" ry="10" fill="#000" opacity=".06" />
+      <g {...p('lentes')}>
+        <circle cx="174" cy="34" r="17" />
+        <circle cx="226" cy="34" r="17" />
+        <path d="M190 32q10-8 20 0" fill="none" stroke="currentColor" strokeWidth="5" />
+      </g>
+      <path {...p('remera')} d="M140 84L172 70Q200 96 228 70L260 84L254 240H146Z" />
+      <path d="M172 70Q200 96 228 70Q200 84 172 70Z" fill="#F3F1EC" />
+      <g {...p('campera')}>
+        <path d="M140 84L172 70L182 98L172 250H130L134 140Z" />
+        <path d="M260 84L228 70L218 98L228 250H270L266 140Z" />
+        <path d="M140 84L104 112L90 238H116L130 140Z" />
+        <path d="M260 84L296 112L310 238H284L270 140Z" />
+      </g>
+      <path {...p('pollera')} d="M146 244H254L292 440H108Z" />
+      <rect x="146" y="244" width="108" height="10" fill="#000" opacity=".12" />
+      <g {...p('zapatillas')}>
+        <path d="M122 478H190V502Q190 510 182 510H130Q122 510 122 502Z" />
+        <path d="M210 478H278V502Q278 510 270 510H218Q210 510 210 502Z" />
+      </g>
+      <g fill="#fff" opacity=".85">
+        <rect x="122" y="502" width="68" height="8" rx="4" />
+        <rect x="210" y="502" width="68" height="8" rx="4" />
+      </g>
+      <g {...p('cartera')}>
+        <path d="M312 330q28-44 56 0" fill="none" stroke="currentColor" strokeWidth="6" />
+        <rect x="302" y="326" width="76" height="64" rx="12" />
+      </g>
+    </svg>
+  )
+}
+
+function FormalMujer({ p }) {
+  return (
+    <svg viewBox="0 0 400 520" className="mock escena" role="img"
+      aria-label="Outfit formal de mujer">
+      <rect width="400" height="520" fill="#F3F1EC" />
+      <ellipse cx="200" cy="506" rx="150" ry="10" fill="#000" opacity=".06" />
+      <path {...p('vestido')} d="M168 64H232L242 150L250 232L300 466H100L150 232L158 150Z" />
+      <path d="M178 64L200 100L222 64Z" fill="#F3F1EC" />
+      <rect {...p('cinturon')} x="150" y="224" width="100" height="12" />
+      <g {...p('collar')}>
+        <path d="M180 70Q200 112 220 70" fill="none" stroke="currentColor" strokeWidth="4" />
+        <circle cx="200" cy="96" r="6" />
+      </g>
+      <g {...p('blazer')}>
+        <path d="M168 60L122 82L112 250H156L162 150L176 96Z" />
+        <path d="M232 60L278 82L288 250H244L238 150L224 96Z" />
+        <path d="M122 82L88 110L78 250H104L116 150Z" />
+        <path d="M278 82L312 110L322 250H296L284 150Z" />
+      </g>
+      <g {...p('zapatos')}>
+        <path d="M122 482H152Q184 490 188 506H136V516H124Z" />
+        <path d="M278 482H248Q216 490 212 506H264V516H276Z" />
+      </g>
+      <rect {...p('cartera')} x="316" y="330" width="72" height="44" rx="8" />
+      <path d="M316 338L352 358L388 338" fill="none" stroke="#000" strokeOpacity=".25"
+        strokeWidth="3" />
+    </svg>
+  )
+}
+
 function Living({ p }) {
   return (
     <svg viewBox="0 0 520 400" className="mock escena" role="img" aria-label="Living">
       <rect {...p('pared')} width="520" height="290" />
       <rect {...p('piso')} y="290" width="520" height="110" />
-      <rect y="286" width="520" height="8" fill="#000" opacity=".12" pointerEvents="none" />
-      <g pointerEvents="none">
+      <rect y="286" width="520" height="8" fill="#000" opacity=".12" />
+      <g>
         <rect x="56" y="50" width="130" height="150" rx="6" fill="#fff" />
         <rect x="64" y="58" width="114" height="134" fill="#DDE7EE" />
         <path d="M121 58V192M64 125H178" stroke="#fff" strokeWidth="6" />
       </g>
       <rect {...p('cuadro')} x="296" y="62" width="96" height="122" rx="4" />
-      <rect x="306" y="72" width="76" height="102" fill="#fff" opacity=".85" pointerEvents="none" />
+      <rect x="306" y="72" width="76" height="102" fill="#fff" opacity=".85" />
       <circle {...p('almohadones')} cx="344" cy="112" r="22" />
       <path {...p('planta')} d="M318 160q26-30 52 0z" />
       <g {...p('alfombra')}>
         <ellipse cx="270" cy="352" rx="190" ry="34" />
       </g>
-      <ellipse cx="270" cy="352" rx="130" ry="22" fill="#fff" opacity=".25" pointerEvents="none" />
+      <ellipse cx="270" cy="352" rx="130" ry="22" fill="#fff" opacity=".25" />
       <g {...p('sillon')}>
         <rect x="150" y="176" width="240" height="84" rx="20" />
         <rect x="132" y="206" width="48" height="84" rx="16" />
         <rect x="360" y="206" width="48" height="84" rx="16" />
         <rect x="178" y="226" width="184" height="64" rx="12" />
       </g>
-      <rect x="178" y="226" width="184" height="64" rx="12" fill="#000" opacity=".08" pointerEvents="none" />
+      <rect x="178" y="226" width="184" height="64" rx="12" fill="#000" opacity=".08" />
       <g {...p('almohadones')}>
         <rect x="196" y="204" width="52" height="46" rx="10" transform="rotate(-8 222 227)" />
         <rect x="296" y="208" width="52" height="42" rx="10" transform="rotate(7 322 229)" />
       </g>
-      <g fill="#000" opacity=".5" pointerEvents="none">
+      <g fill="#000" opacity=".5">
         <rect x="146" y="290" width="10" height="14" rx="3" />
         <rect x="384" y="290" width="10" height="14" rx="3" />
         <rect x="446" y="150" width="6" height="170" />
@@ -95,7 +166,8 @@ function Living({ p }) {
       </g>
       <path {...p('lampara')} d="M424 150L474 150L462 96L436 96Z" />
       <path {...p('maceta')} d="M30 330L60 330L56 290L34 290Z" />
-      <path {...p('planta')} d="M45 292q-30-30-12-64q22 22 12 64zM45 292q30-26 22-62q-26 18-22 62z" />
+      <path {...p('planta')}
+        d="M45 292q-30-30-12-64q22 22 12 64zM45 292q30-26 22-62q-26 18-22 62z" />
     </svg>
   )
 }
@@ -105,15 +177,15 @@ function Dormitorio({ p }) {
     <svg viewBox="0 0 520 400" className="mock escena" role="img" aria-label="Dormitorio">
       <rect {...p('pared')} width="520" height="290" />
       <rect {...p('piso')} y="290" width="520" height="110" />
-      <rect y="286" width="520" height="8" fill="#000" opacity=".12" pointerEvents="none" />
-      <rect x="380" y="46" width="104" height="150" rx="4" fill="#DDE7EE" pointerEvents="none" />
+      <rect y="286" width="520" height="8" fill="#000" opacity=".12" />
+      <rect x="380" y="46" width="104" height="150" rx="4" fill="#DDE7EE" />
       <g {...p('cortinas')}>
         <path d="M368 36H408Q398 120 412 214H368Z" />
         <path d="M456 36H496V214H452Q466 120 456 36Z" />
       </g>
-      <rect x="364" y="30" width="136" height="8" rx="4" fill="#000" opacity=".45" pointerEvents="none" />
+      <rect x="364" y="30" width="136" height="8" rx="4" fill="#000" opacity=".45" />
       <rect {...p('cuadro')} x="196" y="54" width="92" height="60" rx="3" />
-      <rect x="204" y="62" width="76" height="44" fill="#fff" opacity=".8" pointerEvents="none" />
+      <rect x="204" y="62" width="76" height="44" fill="#fff" opacity=".8" />
       <ellipse {...p('alfombra')} cx="250" cy="358" rx="200" ry="30" />
       <rect {...p('respaldo')} x="116" y="132" width="252" height="150" rx="22" />
       <g {...p('almohadas')}>
@@ -121,12 +193,12 @@ function Dormitorio({ p }) {
         <rect x="250" y="190" width="94" height="42" rx="14" />
       </g>
       <path {...p('acolchado')} d="M96 228H388V300Q388 314 374 314H110Q96 314 96 300Z" />
-      <rect x="96" y="228" width="292" height="18" fill="#fff" opacity=".22" pointerEvents="none" />
-      <rect x="106" y="314" width="10" height="16" rx="3" fill="#000" opacity=".45" pointerEvents="none" />
-      <rect x="368" y="314" width="10" height="16" rx="3" fill="#000" opacity=".45" pointerEvents="none" />
+      <rect x="96" y="228" width="292" height="18" fill="#fff" opacity=".22" />
+      <rect x="106" y="314" width="10" height="16" rx="3" fill="#000" opacity=".45" />
+      <rect x="368" y="314" width="10" height="16" rx="3" fill="#000" opacity=".45" />
       <rect {...p('mesa')} x="24" y="226" width="62" height="72" rx="6" />
-      <rect x="32" y="258" width="46" height="4" rx="2" fill="#000" opacity=".2" pointerEvents="none" />
-      <rect x="51" y="188" width="8" height="38" fill="#000" opacity=".45" pointerEvents="none" />
+      <rect x="32" y="258" width="46" height="4" rx="2" fill="#000" opacity=".2" />
+      <rect x="51" y="188" width="8" height="38" fill="#000" opacity=".45" />
       <path {...p('lampara')} d="M32 192H78L68 156H42Z" />
     </svg>
   )
@@ -134,7 +206,29 @@ function Dormitorio({ p }) {
 
 export const ESCENAS = [
   {
-    id: 'casual', grupo: 'Ropa', nombre: 'Outfit casual', Dibujo: Casual,
+    id: 'casual-mujer', grupo: 'Ropa de mujer', nombre: 'Casual', Dibujo: CasualMujer,
+    partes: [
+      { id: 'pollera', nombre: 'Pollera', peso: 30, rol: 1 },
+      { id: 'campera', nombre: 'Campera', peso: 24, rol: 1 },
+      { id: 'remera', nombre: 'Remera', peso: 22, rol: 0 },
+      { id: 'cartera', nombre: 'Cartera', peso: 10, rol: 3 },
+      { id: 'zapatillas', nombre: 'Zapatillas', peso: 8, rol: 0 },
+      { id: 'lentes', nombre: 'Lentes', peso: 6, rol: 4 },
+    ],
+  },
+  {
+    id: 'formal-mujer', grupo: 'Ropa de mujer', nombre: 'Formal', Dibujo: FormalMujer,
+    partes: [
+      { id: 'vestido', nombre: 'Vestido', peso: 48, rol: 0 },
+      { id: 'blazer', nombre: 'Blazer', peso: 26, rol: 1 },
+      { id: 'zapatos', nombre: 'Zapatos', peso: 9, rol: 2 },
+      { id: 'cartera', nombre: 'Cartera', peso: 9, rol: 2 },
+      { id: 'cinturon', nombre: 'Cinturón', peso: 5, rol: 3 },
+      { id: 'collar', nombre: 'Collar', peso: 3, rol: 4 },
+    ],
+  },
+  {
+    id: 'casual', grupo: 'Ropa de hombre', nombre: 'Casual', Dibujo: Casual,
     partes: [
       { id: 'remera', nombre: 'Remera', peso: 34, rol: 0 },
       { id: 'pantalon', nombre: 'Pantalón', peso: 30, rol: 1 },
@@ -145,7 +239,7 @@ export const ESCENAS = [
     ],
   },
   {
-    id: 'formal', grupo: 'Ropa', nombre: 'Outfit formal', Dibujo: Formal,
+    id: 'formal', grupo: 'Ropa de hombre', nombre: 'Formal', Dibujo: Formal,
     partes: [
       { id: 'saco', nombre: 'Saco', peso: 40, rol: 0 },
       { id: 'pantalon', nombre: 'Pantalón', peso: 28, rol: 0 },

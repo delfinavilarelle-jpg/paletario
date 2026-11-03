@@ -1,20 +1,29 @@
 /* ---------- estructura general ---------- */
-.app { min-height: 100vh; display: flex; flex-direction: column; overflow-x: clip; font-family: 'Bricolage Grotesque', system-ui, sans-serif; }
+.app { min-height: 100vh; display: flex; flex-direction: column; overflow-x: clip;
+  font-family: 'Bricolage Grotesque', system-ui, sans-serif; }
 .contenido { flex: 1; }
-.app-config { max-width: 640px; margin: 64px auto; padding: 0 16px; font-family: 'Bricolage Grotesque', system-ui, sans-serif; }
+.app-config { max-width: 640px; margin: 64px auto; padding: 0 16px;
+  font-family: 'Bricolage Grotesque', system-ui, sans-serif; }
 
 /* ---------- barra superior ---------- */
-.barra { position: sticky; top: 0; z-index: 30; background: rgba(244, 244, 242, .92); backdrop-filter: blur(10px); border-bottom: 1px solid #e3dfd6; }
-.barra-in { max-width: 1200px; margin: 0 auto; padding: 10px clamp(16px, 4vw, 40px); display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
-.marca { display: flex; align-items: center; gap: 10px; border: none; background: none; padding: 0; cursor: pointer; font: inherit; font-size: 22px; font-weight: 800; letter-spacing: -.03em; color: #1d1b1a; }
+.barra { position: sticky; top: 0; z-index: 30; background: rgba(244, 244, 242, .92);
+  backdrop-filter: blur(10px); border-bottom: 1px solid #e3dfd6; }
+.barra-in { max-width: 1200px; margin: 0 auto; padding: 10px clamp(16px, 4vw, 40px); display: flex;
+  align-items: center; gap: 20px; flex-wrap: wrap; }
+.marca { display: flex; align-items: center; gap: 10px; border: none; background: none; padding: 0;
+  cursor: pointer; font: inherit; font-size: 22px; font-weight: 800; letter-spacing: -.03em;
+  color: #1d1b1a; }
 .marca img { height: 40px; width: auto; }
 .tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-left: auto; }
-.tabs button { padding: 8px 16px; border-radius: 999px; border: 1px solid #ccc; background: #fff; font: inherit; font-size: 15px; cursor: pointer; transition: background .15s, color .15s; }
+.tabs button { padding: 8px 16px; border-radius: 999px; border: 1px solid #ccc; background: #fff;
+  font: inherit; font-size: 15px; cursor: pointer; transition: background .15s, color .15s; }
 .tabs button:hover { border-color: #6b1010; color: #6b1010; }
 .tabs button.activa { background: #6b1010; color: #fff; border-color: #6b1010; }
-.menu-btn { display: none; margin-left: auto; width: 46px; height: 46px; border-radius: 50%; border: 1px solid #ccc; background: #fff; cursor: pointer;
+.menu-btn { display: none; margin-left: auto; width: 46px; height: 46px; border-radius: 50%;
+  border: 1px solid #ccc; background: #fff; cursor: pointer;
   flex-direction: column; align-items: center; justify-content: center; gap: 5px; padding: 0; }
-.menu-btn span { display: block; width: 20px; height: 2px; border-radius: 2px; background: #6b1010; transition: transform .2s, opacity .2s; }
+.menu-btn span { display: block; width: 20px; height: 2px; border-radius: 2px; background: #6b1010;
+  transition: transform .2s, opacity .2s; }
 .menu-btn[aria-expanded='true'] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
 .menu-btn[aria-expanded='true'] span:nth-child(2) { opacity: 0; }
 .menu-btn[aria-expanded='true'] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
@@ -22,19 +31,26 @@
 /* ---------- menú de hamburguesa en celular y tablet ---------- */
 @media (max-width: 1000px) {
   .menu-btn { display: flex; }
-  .tabs { display: none; width: 100%; flex-direction: column; gap: 6px; margin: 0; padding: 4px 0 12px; }
+  .tabs { display: none; width: 100%; flex-direction: column; gap: 6px; margin: 0;
+    padding: 4px 0 12px; }
   .tabs.abierto { display: flex; }
-  .tabs button { width: 100%; text-align: left; padding: 14px 18px; border-radius: 16px; font-size: 17px; }
+  .tabs button { width: 100%; text-align: left; padding: 14px 18px; border-radius: 16px;
+    font-size: 17px; }
 }
 
 /* ---------- pie de página ---------- */
-.pie-pagina { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 6px 20px; padding: 28px clamp(16px, 4vw, 40px);
-  border-top: 1px solid #e3dfd6; background: #f4f4f2; color: #555; font-size: 14px; text-align: center; }
+.pie-pagina { display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+  gap: 6px 20px; padding: 28px clamp(16px, 4vw, 40px);
+  border-top: 1px solid #e3dfd6; background: #f4f4f2; color: #555; font-size: 14px;
+    text-align: center; }
 .pie-pagina p { margin: 0; }
 
 /* ---------- avisos ---------- */
-.toast { position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom)); transform: translateX(-50%); z-index: 100; margin: 0;
-  max-width: min(92vw, 520px); padding: 12px 22px; border-radius: 999px; font-size: 15px; box-shadow: 0 8px 24px #0003; }
+.toast { position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom));
+  transform: translateX(-50%); z-index: 100; margin: 0;
+  max-width: min(92vw, 520px); padding: 12px 22px; border-radius: 999px; font-size: 15px;
+    box-shadow: 0 8px 24px #0003; }
 .aviso { background: #1d1b1a; color: #fff; }
-.error { background: #fde8e8; color: #9b1c1c; padding: 8px 12px; border-radius: 12px; font-size: 15px; }
+.error { background: #fde8e8; color: #9b1c1c; padding: 8px 12px; border-radius: 12px;
+  font-size: 15px; }
 .toast.error { border: 1px solid #f3b7b7; }
