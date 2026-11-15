@@ -2,7 +2,7 @@
 
 Aplicación web para crear, probar y guardar paletas de color. Trabajo Práctico 2 de Desarrollo Frontend II (UADE, 2026), por Delfina Vilarelle.
 
-- **App publicada:** COMPLETAR con la URL de Vercel
+- **App publicada:** https://paletario.vercel.app
 - **Repositorio:** https://github.com/delfinavilarelle-jpg/paletario
 
 ## Qué hace
