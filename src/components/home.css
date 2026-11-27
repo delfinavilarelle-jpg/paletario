@@ -100,3 +100,13 @@
   .tira span { height: 64px; }
   .home h2 { margin-bottom: 18px; }
 }
+
+.familias-pista { display: none; }
+/* v5: en celular las familias de color pasan a un carrusel horizontal para que no ocupen
+   toda la pantalla; se desliza con el dedo y cada familia queda alineada al soltar */
+@media (max-width: 760px) {
+  .familias { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 10px;
+    padding-bottom: 10px; scrollbar-width: thin; }
+  .familia { flex: 0 0 38%; scroll-snap-align: start; }
+  .familias-pista { display: block; margin: 8px 0 0; font-size: 14px; opacity: .7; }
+}

@@ -127,18 +127,21 @@ export default function Home({ onCopiar }) {
             sensaciones, destacar información, crear identidad y dirigir la atención del usuario.
           </p>
         </div>
-        <div className="familias">
-          {FAMILIAS.map(([h, s]) => (
-            <div className="familia" key={h + '-' + s}>
-              {paso(9, 88, 28).map((l) => {
-                const c = hslAHex({ h, s, l })
-                return (
-                  <button key={l} className="muestra" style={{ background: c }}
-                    title={`Copiar ${c}`} onClick={() => onCopiar(c)} />
-                )
-              })}
-            </div>
-          ))}
+        <div className="familias-caja">
+          <div className="familias">
+            {FAMILIAS.map(([h, s]) => (
+              <div className="familia" key={h + '-' + s}>
+                {paso(9, 88, 28).map((l) => {
+                  const c = hslAHex({ h, s, l })
+                  return (
+                    <button key={l} className="muestra" style={{ background: c }}
+                      title={`Copiar ${c}`} onClick={() => onCopiar(c)} />
+                  )
+                })}
+              </div>
+            ))}
+          </div>
+          <p className="familias-pista">Deslizá para ver más colores →</p>
         </div>
       </section>
 

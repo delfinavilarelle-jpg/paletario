@@ -5,6 +5,8 @@ import RuedaColor from './RuedaColor'
 import SelectorColor from './SelectorColor'
 import EditorPaleta from './EditorPaleta'
 import TarjetaPaleta from './TarjetaPaleta'
+import GeneradorApi from './GeneradorApi'
+import useNombreColor from '../hooks/useNombreColor'
 import './paletas.css'
 
 const BLANCO = '#FFFFFF'
@@ -23,6 +25,9 @@ export default function Creacion(props) {
   const [fino, setFino] = useState(false)
   const [error, setError] = useState('')
   const [editor, setEditor] = useState(null)
+  const nombreColor = useNombreColor(color)
+  // Color base para la API: el casillero elegido, o el primero que tenga color
+  const base = slots[sel] ?? slots.find(Boolean) ?? null
 
   // Rueda: llena el casillero elegido y pasa al siguiente vacío
   const elegir = (hex) => {
@@ -69,6 +74,14 @@ export default function Creacion(props) {
     setSel(0)
     setColor(BLANCO)
     setHsv(hexAHsv(BLANCO))
+    setError('')
+  }
+  // Reemplaza los casilleros por los colores que devolvió la API
+  const usarDeApi = (colores) => {
+    setSlots(colores)
+    setSel(0)
+    setColor(colores[0])
+    setHsv(hexAHsv(colores[0]))
     setError('')
   }
   const limpiarTodo = () => {
@@ -127,6 +140,11 @@ export default function Creacion(props) {
                   onChange={(e) => escribirHex(e.target.value)} />
               </label>
               <div className="cre-muestra" style={{ background: esHex(color) ? color : BLANCO }} />
+              <p className="cre-nombre" aria-live="polite">
+                {nombreColor.cargando && 'Buscando el nombre…'}
+                {nombreColor.nombre && <>Nombre: <b>{nombreColor.nombre}</b> · The Color API</>}
+                {nombreColor.error && 'No se pudo obtener el nombre del color.'}
+              </p>
             </div>
           </div>
 
@@ -172,6 +190,8 @@ export default function Creacion(props) {
             <button type="button" className="btn-accion" onClick={reiniciar}>Reiniciar</button>
           </div>
         </div>
+
+        <GeneradorApi base={base} cantidad={slots.length} onUsar={usarDeApi} />
 
         <section className="cre-guardadas">
           <h2>Mis paletas</h2>

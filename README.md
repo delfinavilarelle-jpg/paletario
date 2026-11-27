@@ -8,14 +8,14 @@ Aplicación web para crear, probar y guardar paletas de color. Trabajo Práctico
 ## Qué hace
 
 - **Home:** teoría del color (familias, tono, saturación, luminosidad, temperatura) y una rueda interactiva con sus combinaciones.
-- **Creación de paletas:** elegir entre 2 y 8 colores en la rueda, ponerles nombre y mood, y guardarlas. Se pueden editar, marcar como favoritas y eliminar.
+- **Creación de paletas:** elegir entre 2 y 8 colores en la rueda, ponerles nombre y mood, y guardarlas. Se pueden editar, marcar como favoritas y eliminar. Muestra el nombre de cada color y genera paletas a partir de un color base con [The Color API](https://www.thecolorapi.com).
 - **Combinaciones:** probar una paleta en una web, una app y un póster; mezclar los colores y aprobarla.
 - **Ropa y ambientes:** armar un outfit (casual o formal, de mujer o de hombre) o un ambiente (living o dormitorio) pieza por pieza, eligiendo el color de cada prenda o mueble, con una barra que compara el reparto con la regla 60-30-10.
 - **Ideas para paletas:** galería de paletas armadas y de marcas, con buscador, filtros y favoritos. Las marcas que son apps muestran su ícono, que se puede pintar con otra paleta.
 
 ## Tecnologías
 
-React 19 + Vite, Firebase (Authentication anónima y Cloud Firestore) y Vercel.
+React 19 + Vite, Firebase (Authentication anónima y Cloud Firestore), The Color API (API pública, sin clave) y Vercel.
 
 ## Cómo ejecutarlo
 
@@ -69,6 +69,8 @@ src/
   App.jsx                 navegación y operaciones con Firestore
   firebase.js             inicialización con las variables de entorno
   services/palettes.js    consultar, agregar, modificar y eliminar
+  services/colorApi.js    pedidos a The Color API (nombre de un color y esquemas)
+  hooks/useNombreColor.js useEffect que pide el nombre del color al cambiar el hex
   utils/color.js          conversiones, esquemas y contraste
   utils/geometria.js      trazos de las ruedas de color
   data/paletas.js         paletas y marcas de la galería
